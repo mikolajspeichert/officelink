@@ -1,3 +1,4 @@
+import 'webrtc-adapter'
 import io from 'socket.io-client'
 import connections from '../utils/connections'
 
@@ -25,7 +26,7 @@ function getConnection(dispatch, id) {
   if (pc) return pc
   pc = new RTCPeerConnection({ iceServers: connections.iceServers })
   connections.putConnection(id, pc)
-  pc.addStream(connections.stream)
+  if (connections.stream) pc.addStream(connections.stream)
   pc.onicecandidate = e => {
     connections.socket.emit('msg', {
       by: connections.id,
@@ -35,7 +36,6 @@ function getConnection(dispatch, id) {
     })
   }
   pc.onaddstream = e => {
-    console.log('kurwaa', e)
     dispatch(addPeer(id, e.stream))
   }
   return pc
@@ -109,7 +109,7 @@ function mediator(dispatch) {
 export function init(stream) {
   connections.stream = stream
   return dispatch => {
-    var socket = io('http://10.0.1.13:3001')
+    var socket = io('http://10.0.1.15:3001')
     socket.emit('init', id => {
       connections.id = id
     })

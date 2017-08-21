@@ -1,3 +1,7 @@
+/**
+ * COMMON WEBPACK CONFIGURATION
+ */
+
 const path = require('path')
 const webpack = require('webpack')
 
@@ -7,7 +11,7 @@ module.exports = options => ({
     {
       // Compile into js/build.js
       path: path.resolve(process.cwd(), 'build'),
-      publicPath: './',
+      publicPath: '/',
     },
     options.output
   ), // Merge with env dependent settings

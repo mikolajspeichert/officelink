@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import configureStore from './configureStore'
 import App from './components/App'
-import 'webrtc-adapter'
 
 const store = configureStore()
 
@@ -21,7 +20,7 @@ window.RTCSessionDescription =
   window.webkitRTCSessionDescription
 window.URL = window.URL || window.mozURL || window.webkitURL
 
-if (!navigator.mediaDevices) navigator.mediaDevices = {}
+// if (!navigator.mediaDevices) navigator.mediaDevices = {}
 
 if (navigator.mediaDevices.getUserMedia === undefined) {
   navigator.mediaDevices.getUserMedia = constraints => {
